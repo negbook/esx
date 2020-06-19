@@ -58,13 +58,15 @@ ESX.SavePlayer = function(xPlayer, cb)
 
 	-- Job, loadout, inventory and position
 	table.insert(asyncTasks, function(cb)
-		MySQL.Async.execute('UPDATE users SET job = @job, job_grade = @job_grade, loadout = @loadout, position = @position, inventory = @inventory WHERE identifier = @identifier', {
+		MySQL.Async.execute('UPDATE users SET job = @job, job_grade = @job_grade, loadout = @loadout, position = @position, inventory = @inventory, joblabel = @joblabel, registered = @registered WHERE identifier = @identifier', {
 			['@job'] = xPlayer.job.name,
 			['@job_grade'] = xPlayer.job.grade,
 			['@loadout'] = json.encode(xPlayer.getLoadout()),
 			['@position'] = json.encode(xPlayer.getCoords()),
 			['@identifier'] = xPlayer.identifier,
-			['@inventory'] = json.encode(xPlayer.getInventory(true))
+			['@inventory'] = json.encode(xPlayer.getInventory(true)),
+            ['@joblabel']        = xPlayer.job.label,--HaTE添加
+            ['@registered']        = xPlayer.registered,--HaTE添加
 		}, function(rowsChanged)
 			cb()
 		end)
@@ -130,6 +132,7 @@ ESX.GetPlayerFromIdentifier = function(identifier)
 end
 
 ESX.RegisterUsableItem = function(item, cb)
+    
 	ESX.UsableItemsCallbacks[item] = cb
 end
 

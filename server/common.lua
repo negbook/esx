@@ -21,12 +21,16 @@ end
 MySQL.ready(function()
 	MySQL.Async.fetchAll('SELECT * FROM items', {}, function(result)
 		for k,v in ipairs(result) do
-			ESX.Items[v.name] = {
+			ESX.Items[v.name] = v
+            --[[
+			{
 				label = v.label,
 				weight = v.weight,
 				rare = v.rare,
 				canRemove = v.can_remove
 			}
+            ]]--
+			
 		end
 	end)
 

@@ -1,4 +1,4 @@
-Locales['en'] = {
+Locales['zh'] = {
   -- Inventory
   ['cash'] = '現金',
   ['inventory'] = '物品欄 重量:%s/%s',
@@ -15,17 +15,13 @@ Locales['en'] = {
   ['received_item'] = '您收到~y~%sx~s~~b~%s~s~，來自~b~%s~s~',
   ['gave_weapon'] = '您把~y~1x~s~~b~%s~s~贈給了~y~%s~s~.',
   ['gave_weapon_ammo'] = '您把~y~1x~s~~b~%s~s~和~o~%s發~s~彈藥贈給了~y~%s~s~.',
-  ['gave_weapon_withammo'] = 'vous avez donné ~y~1x~s~ ~b~%s~s~ avec ~o~%sx %s~s~ à ~y~%s~s~',                                                                                      
   ['gave_weapon_hasalready'] = '~y~%s~s~已經有了~y~%s~s~',
-  ['gave_weapon_noweapon'] = '~y~%s~s~ n\'a pas cette arme',                                                   
   ['received_weapon'] = '您收到了~y~1x~s~~b~%s~s~，來自~b~%s~s~.',
   ['received_weapon_ammo'] = '您收到了~y~1x~s~~b~%s~s~和~o~%sx~s~彈藥，來自~b~%s~s~.',
-  ['received_weapon_withammo'] = 'vous avez reçu ~y~1x~s~ ~b~%s~s~ avec ~o~%sx %s~s~ de ~b~%s~s~',
   ['received_weapon_hasalready'] = '~b~%s~s~試圖給您壹個~y~%s~s~, 但是您已經擁有壹個了.',
-  ['received_weapon_noweapon'] = '~b~%s~s~ tente de vous donner des munitions pour ~y~%s~s~, mais vous n\'en avez pas',
-  ['gave_money'] = 'vous avez donné ~g~$%s~s~ à ~y~%s~s~',
-                                                                      
-        
+  ['gave_ammo'] = '您把~o~%sx~s~彈藥贈給了~y~%s~s~.',
+  ['received_ammo'] = '您收到了~o~%sx~s~彈藥，來自~b~%s~s~.',
+  ['gave_money'] = '您將~g~$%s~s~贈給了~y~%s~s~',
   ['received_money'] = '您收到了~g~$%s~s~ from ~b~%s~s~',
   ['gave_account_money'] = 'you gave ~g~$%s~s~ (%s) to ~y~%s~s~',
   ['received_account_money'] = '您收到了~g~$%s~s~ (%s) from ~b~%s~s~',
@@ -55,54 +51,43 @@ Locales['en'] = {
   
   ['act_imp'] = '操作失敗',
   ['in_vehicle'] = '請離開載具',
+  ['cannot_pickup_room'] = '您的物品欄沒有足夠的空間來存放~y~%s~s~!',
 
   -- Commands
-  ['setjob'] = 'assigner job',
-  ['id_param'] = 'identification du joueur',
-  ['setjob_param2'] = 'le travail que vous souhaitez assigner',
-  ['setjob_param3'] = 'le niveau d\'emploi',
-  ['spawn_car'] = 'spawn un véhicule',
-  ['spawn_car_param'] = 'nom de la voiture',
-  ['delete_vehicle'] = 'supprimer le véhicule',
-  ['invalid_account'] = 'compte invalide',
-  ['account'] = 'compte',
-  ['giveaccountmoney'] = 'donner de l\'argent au compte',
-  ['invalid_item'] = 'item invalide',
-  ['item'] = 'article',
-  ['giveitem'] = 'donner un article',
-  ['weapon'] = 'arme',
-  ['giveweapon'] = 'donner l\'arme',
-  ['chat_clear'] = 'vider le chat',
-  ['chat_clear_all'] = 'vider le chat pour tous le monde',
-  ['command_clearinventory'] = 'effacer tout les items de l\'inventaire',
-  ['command_clearloadout'] = 'retirer toutes les armes de l\'équipement',
-  ['command_playerid_param'] = 'spécifiez un playerid ou laissez vide pour vous-même',
-
-                                 
-                                       
-                                      
-                                    
-                                 
-                                                    
-                                 
-                                         
-                                                               
-                                                                       
-                              
-                                       
-                         
-                                           
-                                    
-                      
-                                
-                        
-                                  
-                                                 
-                                        
-                                                        
-                                                                
-                                                               
-   -- Locale settings
+  ['setjob'] = '分配壹份工作給玩家',
+  ['id_param'] = '玩家ID',
+  ['setjob_param2'] = '您想要分配的工作',
+  ['setjob_param3'] = '工作水平',
+  ['load_ipl'] = '加載場景',
+  ['unload_ipl'] = '卸載場景',
+  ['play_anim'] = '播放動作',
+  ['play_emote'] = '播放表情',
+  ['spawn_car'] = '生成載具',
+  ['spawn_car_param'] = '載具名稱',
+  ['delete_vehicle'] = '刪除載具',
+  ['spawn_object'] = '生成物件',
+  ['spawn_ped'] = '生成角色',
+  ['spawn_ped_param'] = '例如 a_m_m_hillbilly_01',
+  ['givemoney'] = '給予金錢',
+  ['setmoney'] = '為玩家設置金錢',
+  ['money_type'] = '有效的貨幣類型：cash, bank, black',
+  ['money_set'] = '某位~y~絕世高人~s~送給您~g~$%s~s~ (%s)！',
+  ['money_amount'] = '金額',
+  ['invalid_account'] = '無效賬戶',
+  ['account'] = '帳戶',
+  ['giveaccountmoney'] = '給帳戶的錢',
+  ['invalid_item'] = '無效物品',
+  ['item'] = '物品',
+  ['giveitem'] = '贈送物品',
+  ['weapon'] = '武器',
+  ['giveweapon'] = '給予武器',
+  ['disconnect'] = '斷開與服務器的連接',
+  ['chat_clear'] = '清除聊天記錄',
+  ['chat_clear_all'] = '清除所有人的聊天紀錄',
+  ['command_clearinventory'] = 'clear all items from inventory',
+  ['command_clearloadout'] = 'remove all weapons from loadout',
+  ['command_playerid_param'] = 'specify playerId or leave blank for yourself',
+  -- Locale settings
   ['locale_digit_grouping_symbol'] = ',',
   ['locale_currency'] = '$%s',
   
@@ -185,20 +170,19 @@ Locales['en'] = {
   ['gadget_nightvision'] = '夜視儀',
   ['gadget_parachute'] = '降落傘',
   ['weapon_flare'] = '閃光彈',
-  ['weapon_pizza'] = '披薩',
   ['weapon_doubleaction'] = '双动式左轮手枪',
 
   -- Weapon Components
-  ['component_clip_default'] = 'default Grip',
-  ['component_clip_extended'] = 'extended Grip',
-  ['component_clip_drum'] = 'drum Magazine',
-  ['component_clip_box'] = 'box Magazine',
-  ['component_flashlight'] = 'flashlight',
-  ['component_scope'] = 'scope',
-  ['component_scope_advanced'] = 'advanced Scope',
-  ['component_suppressor'] = 'suppressor',
-  ['component_grip'] = 'grip',
-  ['component_luxary_finish'] = 'luxary Weapon Finish',
+  ['component_clip_default'] = '普通彈夾',
+  ['component_clip_extended'] = '進階彈夾',
+  ['component_clip_drum'] = '厚彈夾',
+  ['component_clip_box'] = '盒裝彈夾',
+  ['component_flashlight'] = '手電筒',
+  ['component_scope'] = '遠鏡',
+  ['component_scope_advanced'] = '進階遠鏡',
+  ['component_suppressor'] = '穩定器',
+  ['component_grip'] = '彈夾',
+  ['component_luxary_finish'] = '珍貴武器完成',
 -- Weapon Ammo
   ['ammo_rounds'] = 'round(s)',
   ['ammo_shells'] = 'shell(s)',
@@ -218,15 +202,15 @@ Locales['en'] = {
   ['ammo_snowball'] = 'snowball(s)',
   ['ammo_flare'] = 'flare(s)',
   ['ammo_flaregun'] = 'flare(s)',
-  ['ammo_pizza'] = 'pizza(s)',
 
   -- Weapon Tints
-  ['tint_default'] = 'default skin',
-  ['tint_green'] = 'green skin',
-  ['tint_gold'] = 'gold skin',
-  ['tint_pink'] = 'pink skin',
-  ['tint_army'] = 'army skin',
-  ['tint_lspd'] = 'blue skin',
-  ['tint_orange'] = 'orange skin',
-  ['tint_platinum'] = 'platinum skin',
+  ['tint_default'] = '默認塗裝',
+  ['tint_green'] = '綠色塗裝',
+  ['tint_gold'] = '黃金塗裝',
+  ['tint_pink'] = '粉紅塗裝',
+  ['tint_army'] = '軍綠塗裝',
+  ['tint_lspd'] = '藍色塗裝',
+  ['tint_orange'] = '橙色塗裝',
+  ['tint_platinum'] = '白金塗裝',
+}
 }

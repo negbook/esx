@@ -128,21 +128,21 @@ TriggerEvent('es:addGroupCommand', 'giveweapon', 'admin', function(source, args,
 	if xPlayer then
 		local weaponName = args[2] or 'unknown'
 
-		if ESX.GetWeapon(weaponName) then
+		--if ESX.GetWeapon(weaponName) then
 			weaponName = string.upper(weaponName)
 
-			if xPlayer.hasWeapon(weaponName) then
-				TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Player already has that weapon.' } })
-			else
+			--if xPlayer.hasWeapon(weaponName) then
+				--TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Player already has that weapon.' } })
+			--else
 				if tonumber(args[3]) then
 					xPlayer.addWeapon(weaponName, tonumber(args[3]))
 				else
 					TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Invalid ammo amount.' } })
 				end
-			end
-		else
-			TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Invalid weapon.' } })
-		end
+			--end
+		--else
+			--TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Invalid weapon.' } })
+		--end
 	else
 		TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Player not online.' } })
 	end

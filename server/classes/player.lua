@@ -1,4 +1,4 @@
-function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, coords)
+function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, coords,firstname,lastname,sex,joblabel,registered)
 	local self = {}
 
 	self.player    = player
@@ -9,7 +9,12 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, c
 	self.name      = name
 	self.maxWeight = Config.MaxWeight
 	self.coords    = coords
-
+    self.sex          = sex
+	self.firstname = firstname
+	self.lastname = lastname
+	self.fullname = firstname .. "" .. lastname
+	self.joblabel = joblabel
+    self.registered = registered
 	self.source     = self.player.get('source')
 	self.identifier = self.player.get('identifier')
 
@@ -541,6 +546,38 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, c
 	self.showHelpNotification = function(msg, thisFrame, beep, duration)
 		self.triggerEvent('esx:showHelpNotification', msg, thisFrame, beep, duration)
 	end
+    self.getfirstname = function()
+		return self.firstname
+	end
+	self.getsex = function()
+		return self.sex
+	end
+	self.getlastname = function()
+		return self.lastname
+	end
+	self.getfullname = function()
+		return self.getfirstname().."" ..self.getlastname()
+	end
+	self.getjoblabel = function()
+		return self.joblabel
+	end
+    self.getregistered = function()
+		return self.registered
+	end
+    self.setfullname = function(firstname,lastname)
+		self.firstname = firstname
+		self.lastname = lastname
+	end
 
+	self.setjoblabel= function(joblabel)
+		self.joblabel = joblabel
+	end
+
+	self.setsex= function(sex)
+		self.sex = sex
+	end
+    self.setregistered= function(registered)
+		self.registered = registered
+	end
 	return self
 end

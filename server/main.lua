@@ -7,9 +7,14 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 		job = {},
 		loadout = {},
 		playerName = GetPlayerName(playerId),
+        firstname	 = "",
+		lastname	 = "",
+		fullname = "",
+		joblabel	 = '無業遊民',
+		sex = 1,
+        registered = 0,
 		coords = nil
 	}
-
 	-- Get accounts
 	table.insert(tasks, function(cb)
 		MySQL.Async.fetchAll('SELECT name, money FROM user_accounts WHERE identifier = @identifier', {
@@ -38,7 +43,7 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 		-- Get job name, grade and coords
 		table.insert(tasks2, function(cb2)
 
-			MySQL.Async.fetchAll('SELECT job, job_grade, loadout, position, inventory FROM users WHERE identifier = @identifier', {
+			MySQL.Async.fetchAll('SELECT job, job_grade, loadout, position, inventory, firstname, lastname, sex, joblabel, registered FROM users WHERE identifier = @identifier', {
 				['@identifier'] = player.getIdentifier()
 			}, function(result)
 				local job, grade = result[1].job, tostring(result[1].job_grade)
@@ -106,20 +111,43 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 
 				for name,item in pairs(ESX.Items) do
 					local count = foundItems[name] or 0
-
-					table.insert(userData.inventory, {
+                    table.insert(userData.inventory, item)
+                    --[[
+					table.insert(userData.inventory, 
+					{
 						name = name,
 						count = count,
+						usable = ESX.UsableItemsCallbacks[name] ~= nil,
+						
 						label = item.label,
 						weight = item.weight,
-						usable = ESX.UsableItemsCallbacks[name] ~= nil,
 						rare = item.rare,
-						canRemove = item.canRemove
-					})
+						canRemove = item.canRemove,
+                        price = item.price,
+                        iconid = item.iconid,
+						id = item.id,
+                        limit = item.limit
+                        
+                   
+					}
+					)
+                    --]]
 				end
-
+                
+				for name,item in pairs(ESX.Items) do
+					
+					for i,v in pairs(userData.inventory) do 
+						if v.name == name then
+							local count = foundItems[name] or 0
+							local usable = ESX.UsableItemsCallbacks[name] ~= nil
+							userData.inventory[i].count = count
+							userData.inventory[i].usable = usable
+						end 
+					end 
+				end
+                
 				table.sort(userData.inventory, function(a,b)
-					return a.label < b.label
+					return a.id < b.id
 				end)
 
 				if result[1].loadout then
@@ -139,6 +167,27 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 					userData.coords = {x = -269.4, y = -955.3, z = 31.2, heading = 205.8}
 				end
 
+                    if result[1].firstname ~= nil then --原本定義為nil，被數據庫成功定義了就不為nil了
+						userData.firstname = result[1].firstname
+       
+
+					end
+					if result[1].lastname ~= nil then
+						userData.lastname = result[1].lastname
+					end
+					if result[1].firstname ~=nil and result[1].lastname ~= nil then 
+						userData.fullname = userData.firstname .."".. result[1].lastname
+					end 
+					if result[1].joblabel ~= nil then
+						userData.joblabel = result[1].joblabel
+						
+					end
+					if result[1].sex ~= nil then
+						userData.sex = result[1].sex
+					end
+                    if result[1].registered ~= nil then
+						userData.registered = result[1].registered
+					end
 				cb2()
 			end)
 
@@ -150,7 +199,7 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 
 	-- Run Tasks
 	Async.parallel(tasks, function(results)
-		local xPlayer = CreateExtendedPlayer(player, userData.accounts, userData.inventory, userData.job, userData.loadout, userData.playerName, userData.coords)
+		local xPlayer = CreateExtendedPlayer(player, userData.accounts, userData.inventory, userData.job, userData.loadout, userData.playerName, userData.coords, userData.firstname, userData.lastname,userData.sex, userData.joblabel, userData.registered )
 
 		xPlayer.getMissingAccounts(function(missingAccounts)
 			if #missingAccounts > 0 then
@@ -168,7 +217,7 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 			ESX.Players[playerId] = xPlayer
 
 			TriggerEvent('esx:playerLoaded', playerId, xPlayer)
-
+            
 			xPlayer.triggerEvent('esx:playerLoaded', {
 				identifier = xPlayer.identifier,
 				accounts = xPlayer.getAccounts(),
@@ -176,6 +225,13 @@ AddEventHandler('es:playerLoaded', function(playerId, player)
 				inventory = xPlayer.getInventory(),
 				job = xPlayer.getJob(),
 				loadout = xPlayer.getLoadout(),
+                firstname = xPlayer.getfirstname(),
+				lastname = xPlayer.getlastname(),
+				fullname = xPlayer.getfullname(),
+				sex = xPlayer.getsex(),
+				joblabel = xPlayer.getjoblabel(),
+                registered = xPlayer.getregistered(),
+				hesource = _source,                       
 				money = xPlayer.getMoney(),
 				maxWeight = xPlayer.maxWeight
 			})
@@ -197,6 +253,15 @@ AddEventHandler('playerDropped', function(reason)
 			ESX.Players[playerId] = nil
 			ESX.LastPlayerData[playerId] = nil
 		end)
+	end
+end)
+
+RegisterNetEvent('esx:updateregistered')
+AddEventHandler('esx:updateregistered', function()
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	if xPlayer then
+		xPlayer.setregistered(1)
 	end
 end)
 
@@ -442,6 +507,11 @@ ESX.RegisterServerCallback('esx:getPlayerData', function(source, cb)
 		inventory    = xPlayer.getInventory(),
 		job          = xPlayer.getJob(),
 		loadout      = xPlayer.getLoadout(),
+        firstname = xPlayer.getfirstname(),
+		lastname = xPlayer.getlastname(),
+		fullname = xPlayer.getfullname(),
+		joblabel = xPlayer.getjoblabel(),   
+        registered = xPlayer.getregistered(),  
 		money        = xPlayer.getMoney()
 	})
 end)
